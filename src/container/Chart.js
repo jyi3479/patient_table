@@ -82,7 +82,6 @@ const Chart = ({ gender, race, ethnicity }) => {
 
   useEffect(() => {
     patientApis.getPatientStats().then((res) => {
-      console.log(res);
       setList(res.data.stats);
     });
   }, []);
