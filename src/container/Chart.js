@@ -103,11 +103,11 @@ const Chart = ({ gender, race, ethnicity }) => {
           <PieChart data={data3} style={{ width: "300px", height: "300px" }} />
         </div>
         <div>
-          <p>(성별 + 인종)별 환자 수</p>
+          <p>성별 및 인종별 환자 수</p>
           <PieChart data={data4} style={{ width: "300px", height: "300px" }} />
         </div>
         <div>
-          <p>(성별 + 민족)별 환자 수</p>
+          <p>성별 및 민족별 환자 수</p>
           <PieChart data={data5} style={{ width: "300px", height: "300px" }} />
         </div>
       </ChartContainer>
