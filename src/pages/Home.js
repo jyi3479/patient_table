@@ -33,6 +33,8 @@ const Home = () => {
     patientApis.getPatientList(page, limit, order, gender, minAge, maxAge, race, ethnicity, isDeath).then((res) => {
       setList(res.data.patient.list);
       setTotal(res.data.patient.totalLength);
+      setPage(1);
+      setLimit(50);
     });
   };
 
@@ -44,12 +46,12 @@ const Home = () => {
         <InputBox placeholder="최대 나이" value={maxAge} onChange={(e) => setMaxAge(e.target.value)} />
         <Select state={race} setState={setRace} category="인종" list={["other", "native", "black", "white", "asian"]} />
         <Select state={ethnicity} setState={setEthnicity} category="민족" list={["nonhispanic", "hispanic"]} />
-        <Select state={isDeath} setState={setIsDeath} category="사망여부" list={[true, false]} />
+        <Select state={isDeath} setState={setIsDeath} category="사망여부" list={["True", "False"]} />
 
         <img src={searchIcon} onClick={clickedFilter} />
       </FilterBox>
 
-      <Chart gender={gender} />
+      <Chart gender={gender} race={race} ethnicity={ethnicity} />
 
       <Table data={list} limit={limit} setLimit={setLimit} order={order} setOrder={setOrder} />
       <Pagination total={total} limit={limit} page={page} setPage={setPage} />
@@ -58,18 +60,12 @@ const Home = () => {
 };
 
 const Wrap = styled.div`
-  margin: 20px;
-`;
-
-const FilterButton = styled.img`
-  float: right;
-  width: 40px;
-  background-color: grey;
-  cursor: pointer;
+  margin: 20px 50px;
 `;
 
 const FilterBox = styled.div`
   display: flex;
+  border-bottom: 1px solid grey;
 
   img {
     width: 40px;
@@ -79,7 +75,7 @@ const FilterBox = styled.div`
 `;
 
 const InputBox = styled.input`
-  margin: 5px 5px 20px 0px;
+  margin: 5px;
   min-width: 0;
   display: block;
   width: 100%;

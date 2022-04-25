@@ -32,7 +32,7 @@ const TableBody = (props) => {
               <td>{el.age}</td>
               <td>{el.race}</td>
               <td>{el.ethnicity}</td>
-              <td>{+el.isDeath}</td>
+              <td>{el.isDeath ? "True" : "False"}</td>
             </tr>
             {targetId === el.personID && active && (
               <tr>

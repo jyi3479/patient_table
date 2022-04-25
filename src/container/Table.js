@@ -6,7 +6,7 @@ import TableHeader from "../components/Table/TableHeader";
 
 const Table = ({ data, limit, setLimit, order, setOrder }) => {
   return (
-    <>
+    <Wrap>
       <h2>Table</h2>
       <OrderBox>
         <Select type="number" value={limit} onChange={({ target: { value } }) => setLimit(Number(value))}>
@@ -31,9 +31,17 @@ const Table = ({ data, limit, setLimit, order, setOrder }) => {
         <TableHeader />
         <TableBody data={data} />
       </TableContainer>
-    </>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  margin: 90px 0;
+
+  h2 {
+    margin: 0;
+  }
+`;
 
 const OrderBox = styled.div`
   float: right;
@@ -44,32 +52,33 @@ const Select = styled.select`
   margin: 5px 5px 20px 0px;
   min-width: 0;
   display: block;
-  width: 100%;
   padding: 8px 8px;
-  font-family: inherit; // font 상속
-  line-height: inherit;
-  border: 2px solid #acacac;
+  border: 1px solid #acacac;
   border-radius: 10px;
-  color: inherit;
-  background-color: transparent;
   &:focus {
-    border-color: #61b165;
+    outline: none;
   }
 `;
 
 const TableContainer = styled.table`
   width: 100%;
-  border-top: 1px solid #444444;
   border-collapse: collapse;
-  th,
-  td {
-    border-top: 1px solid #444444;
-    padding: 10px;
-    text-align: center;
+
+  thead {
+    border-bottom: 1.5px solid #000000;
+    th {
+      padding: 15px;
+      text-align: center;
+    }
   }
-  th:first-child,
-  td:first-child {
-    border-left: none;
+
+  tbody {
+    th,
+    td {
+      border-bottom: 1px solid #acacac;
+      padding: 10px;
+      text-align: center;
+    }
   }
 `;
 

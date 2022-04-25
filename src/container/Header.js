@@ -11,6 +11,7 @@ const Header = () => {
 
 const HeaderContainer = styled.div`
   text-align: center;
+  padding: 10px 0px 20px;
 `;
 
 export default Header;
