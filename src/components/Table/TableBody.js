@@ -16,7 +16,7 @@ const TableBody = ({ data }) => {
     <tbody>
       {data.map((el) => {
         return (
-          <>
+          <React.Fragment key={el.personID}>
             <tr
               onClick={() => {
                 setActive(!active);
@@ -51,7 +51,7 @@ const TableBody = ({ data }) => {
                 </td>
               </tr>
             )}
-          </>
+          </React.Fragment>
         );
       })}
     </tbody>

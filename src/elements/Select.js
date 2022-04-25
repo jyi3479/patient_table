@@ -6,8 +6,12 @@ const Select = ({ state, setState, category, list }) => {
     <>
       <SelectBox type="string" value={state} onChange={({ target: { value } }) => setState(value)}>
         <option value="">{category}</option>
-        {list.map((el) => {
-          return <option value={el}>{el}</option>;
+        {list.map((el, idx) => {
+          return (
+            <option key={idx} value={el}>
+              {el}
+            </option>
+          );
         })}
       </SelectBox>
     </>
