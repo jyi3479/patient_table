@@ -1,70 +1,53 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 1. Table 컴포넌트 생성 및 페이징
 
-In the project directory, you can run:
 
-### `yarn start`
+axios 라이브러리를 이용하여 환자 정보 API를 호출하였습니다.
+한 페이지당 row 갯수와 페이지 번호를 state로 두고, useState 훅을 사용하여 변경될 때마다 update 시켜주었습니다.
+useEffect의 두번째 인자를 활용하여 페이지, 한 페이지당 row 갯수, 정렬의 기준이 되는 특정 컬럼이 바뀔 때마다 api가 호출되어서 table의 데이터가 바뀌도록 구현하였습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 2. 테이블의 필터 기능
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+5가지의 조건을 나타내는 변수들을 state로 관리하였고, 각 조건이 선택될 때마다 state를 update 시켰습니다.
+검색 버튼을 누르면 조건에 부합하는 단어들을 쿼리 형태로 추가하여 get 요청을 하였고, 필터가 적용된 데이터가 나오도록 구현하였습니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 3. 상세 정보 노출
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+각 환자의 row마다 onClick으로 환자의 id를 매개변수로 받는 상세 정보를 요청하는 함수를 만들어서 호출하였습니다.
+상세 정보 창이 활성화 되었는지 여부를 active라는 state로 두고, 누를 때마다 true/false로 바뀌도록 하면서 다시 누르면 창이 닫히도록 구현하였습니다.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 4. 그래프 구현
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+react-minimal-pie-chart 라는 라이브러리를 사용하여 파이 차트를 구현하였습니다. 
+조건 별로 통계가 되어있는 데이터를 불러온 뒤, 차트의 요소 별로 값을 계산하는 함수(calValue())를 만들었습니다.
+filter 매서드와 for 반복문을 사용하여 조건에 맞는 요소들만 배열로 반환한 뒤, 반환된 배열의 count 값을 모두 더한 값을 반환하였습니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+아쉬운 점은 차트의 라벨을 보여줘야 했지만 시간 관계상 라벨 스타일을 커스텀하지 못한 점입니다.
+이 부분에 대해서는 라이브러리의 커스텀 방법을 더 자세하게 찾아보거나, 라이브러리를 사용하지 않고 파이 차트를 직접 구현하여 더욱 직관적이고 보기 편한 차트로 구현하고 싶습니다.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 5. 차트에 필터 기능 적용하기
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+필터 기능에서 선택된 조건 값들을 Chart 컴포넌트의 props로 넘겨와서 활용하였습니다.
+예를 들어 남자라는 조건을 선택했을 때, 파이 차트에 들어갈 데이터 리스트에서 여자가 들어간 데이터는 value가 0이 되도록 하였습니다.
+즉 남자일 경우 여자의 value는 0이 되고, 그렇지 않은 경우는 calValue()의 반환값을 value로 해주도록 삼항조건연산자를 활용했습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+## 6. 실행 가이드
+1. git clone 후 필터 기능, 차트, 테이블을 한 페이지에서 한번에 보실 수 있습니다.
+2. 헤더 바로 밑의 필터 부분에서 각 조건을 선택한 후, 검색 버튼(돋보기 모양)을 누르면 조건이 적용된 데이터가 테이블에 반영이 됩니다.
+3. 성별, 인종, 민족은 조건이 변하면 바로 차트에 반영이 됩니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. 가장 밑에 테이블 부분의 오른쪽 상단에 한 페이지 당 row 갯수와 정렬 기준을 선택할 수 있습니다.
+5. 테이블 데이터의 각 row를 클릭하면 상세 정보가 바로 하단에 노출이 됩니다.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+6. 가장 밑에 페이징 번호들이 있고, 각각 번호를 클릭하면 다른 페이지의 데이터들이 나옵니다.
+7. 필터 기능이나 한 페이지 당 row 갯수에 따라 페이지 번호의 갯수는 변합니다.
