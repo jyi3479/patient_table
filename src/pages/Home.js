@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
 import { patientApis } from "../shared/apis";
+
 import Chart from "../container/Chart";
 import Pagination from "../components/Table/Pagination";
 import Table from "../container/Table";
 import Select from "../elements/Select";
 
 import searchIcon from "../image/ic_ search@2x.png";
-import filterIcon from "../image/ic_setting@2x.png";
 
 const Home = () => {
   const [list, setList] = useState([]);
@@ -47,7 +48,6 @@ const Home = () => {
         <Select state={race} setState={setRace} category="인종" list={["other", "native", "black", "white", "asian"]} />
         <Select state={ethnicity} setState={setEthnicity} category="민족" list={["nonhispanic", "hispanic"]} />
         <Select state={isDeath} setState={setIsDeath} category="사망여부" list={["True", "False"]} />
-
         <img src={searchIcon} onClick={clickedFilter} />
       </FilterBox>
 
@@ -80,13 +80,7 @@ const InputBox = styled.input`
   display: block;
   width: 100%;
   padding: 8px 8px;
-  font-family: inherit; // font 상속
-  line-height: inherit;
-  /* border: 2px solid #acacac;
-  border-radius: 10px; */
   border: none;
-  color: inherit;
-  background-color: transparent;
   &:focus {
     outline: none;
   }

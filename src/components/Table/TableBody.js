@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { patientApis } from "../../shared/apis";
 
-const TableBody = (props) => {
-  const data = props.data;
+const TableBody = ({ data }) => {
   const [targetId, setTargetId] = useState(null);
   const [targetList, setTargetList] = useState([]);
   const [active, setActive] = useState(false);
@@ -36,7 +35,7 @@ const TableBody = (props) => {
             </tr>
             {targetId === el.personID && active && (
               <tr>
-                <td colspan="7" style={{ borderTop: "none" }}>
+                <td colspan="7">
                   <DetailBox>
                     <div>
                       <h3>전체 방문 수</h3>
@@ -63,13 +62,6 @@ const DetailBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-
-  div {
-    /* border-right: 1px solid #e4e5e6;
-    &:last-child {
-      border: none;
-    } */
-  }
 `;
 
 export default TableBody;
