@@ -10,8 +10,7 @@ const Table = ({ data, limit, setLimit, order, setOrder }) => {
       <h2>Table</h2>
       <OrderBox>
         <Select type="number" value={limit} onChange={({ target: { value } }) => setLimit(Number(value))}>
-          <option value="30">개수</option>
-          <option value="50">50</option>
+          <option value="50">개수</option>
           <option value="80">80</option>
           <option value="100">100</option>
           <option value="130">130</option>
@@ -64,7 +63,7 @@ const TableContainer = styled.table`
   border-collapse: collapse;
   th,
   td {
-    border-bottom: 1px solid #444444;
+    border-top: 1px solid #444444;
     padding: 10px;
     text-align: center;
   }

@@ -4,46 +4,52 @@ import { patientApis } from "../shared/apis";
 import Chart from "../container/Chart";
 import Pagination from "../components/Table/Pagination";
 import Table from "../container/Table";
+import Select from "../elements/Select";
+
+import searchIcon from "../image/ic_ search@2x.png";
+import filterIcon from "../image/ic_setting@2x.png";
 
 const Home = () => {
   const [list, setList] = useState([]);
   const [total, setTotal] = useState(null);
-  const [limit, setLimit] = useState(30);
+  const [limit, setLimit] = useState(50);
   const [page, setPage] = useState(1);
   const [order, setOrder] = useState("");
   const [gender, setGender] = useState("");
-  const [minAge, setMinAge] = useState("");
-  const [maxAge, setMaxAge] = useState("");
+  const [minAge, setMinAge] = useState();
+  const [maxAge, setMaxAge] = useState();
   const [race, setRace] = useState("");
-  const [isDeath, setIsDeath] = useState("");
+  const [ethnicity, setEthnicity] = useState("");
+  const [isDeath, setIsDeath] = useState();
 
   React.useEffect(() => {
-    patientApis.getPatientList(page, limit, order, gender, minAge, maxAge, race, isDeath).then((res) => {
+    patientApis.getPatientList(page, limit, order, gender, minAge, maxAge, race, ethnicity, isDeath).then((res) => {
       setList(res.data.patient.list);
       setTotal(res.data.patient.totalLength);
     });
-  }, [page, limit, order, gender, minAge, maxAge, race, isDeath]);
+  }, [page, limit, order]);
+
+  const clickedFilter = () => {
+    patientApis.getPatientList(page, limit, order, gender, minAge, maxAge, race, ethnicity, isDeath).then((res) => {
+      setList(res.data.patient.list);
+      setTotal(res.data.patient.totalLength);
+    });
+  };
+
   return (
     <Wrap>
-      <h2>Filter</h2>
       <FilterBox>
-        <Select type="string" value={gender} onChange={({ target: { value } }) => setGender(value)}>
-          <option value="">성별</option>
-          <option value="M">M</option>
-          <option value="F">F</option>
-        </Select>
-        <Select type="string" value={gender} onChange={({ target: { value } }) => setGender(value)}>
-          <option value="">나이</option>
-          <option value="M">M</option>
-          <option value="F">F</option>
-        </Select>
-        <Select type="string" value={gender} onChange={({ target: { value } }) => setGender(value)}>
-          <option value="">인종</option>
-          <option value="M">M</option>
-          <option value="F">F</option>
-        </Select>
+        <Select state={gender} setState={setGender} category="성별" list={["M", "F"]} />
+        <InputBox placeholder="최소 나이" value={minAge} onChange={(e) => setMinAge(e.target.value)} />
+        <InputBox placeholder="최대 나이" value={maxAge} onChange={(e) => setMaxAge(e.target.value)} />
+        <Select state={race} setState={setRace} category="인종" list={["other", "native", "black", "white", "asian"]} />
+        <Select state={ethnicity} setState={setEthnicity} category="민족" list={["nonhispanic", "hispanic"]} />
+        <Select state={isDeath} setState={setIsDeath} category="사망여부" list={[true, false]} />
+
+        <img src={searchIcon} onClick={clickedFilter} />
       </FilterBox>
-      <Chart />
+
+      <Chart gender={gender} />
 
       <Table data={list} limit={limit} setLimit={setLimit} order={order} setOrder={setOrder} />
       <Pagination total={total} limit={limit} page={page} setPage={setPage} />
@@ -52,27 +58,41 @@ const Home = () => {
 };
 
 const Wrap = styled.div`
-  margin: 10px 20px;
+  margin: 20px;
+`;
+
+const FilterButton = styled.img`
+  float: right;
+  width: 40px;
+  background-color: grey;
+  cursor: pointer;
 `;
 
 const FilterBox = styled.div`
   display: flex;
+
+  img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
 `;
 
-const Select = styled.select`
-  margin: 5px 0 20px 0px;
+const InputBox = styled.input`
+  margin: 5px 5px 20px 0px;
   min-width: 0;
   display: block;
   width: 100%;
   padding: 8px 8px;
   font-family: inherit; // font 상속
   line-height: inherit;
-  border: 2px solid #acacac;
-  border-radius: 10px;
+  /* border: 2px solid #acacac;
+  border-radius: 10px; */
+  border: none;
   color: inherit;
   background-color: transparent;
   &:focus {
-    border-color: #61b165;
+    outline: none;
   }
 `;
 

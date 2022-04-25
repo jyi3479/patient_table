@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { patientApis } from "../../shared/apis";
 
 const TableBody = (props) => {
@@ -35,15 +36,19 @@ const TableBody = (props) => {
             </tr>
             {targetId === el.personID && active && (
               <tr>
-                <td>
-                  <p>전체 방문 수</p>
-                  {targetList.visitCount}
-                </td>
-                <td>
-                  <p>진단 정보</p>
-                  {targetList.conditionList.map((el) => {
-                    return <li>{el}</li>;
-                  })}
+                <td colspan="7" style={{ borderTop: "none" }}>
+                  <DetailBox>
+                    <div>
+                      <h3>전체 방문 수</h3>
+                      <span>{targetList.visitCount} 회</span>
+                    </div>
+                    <div>
+                      <h3>진단 정보</h3>
+                      {targetList.conditionList.map((el) => {
+                        return <li>{el}</li>;
+                      })}
+                    </div>
+                  </DetailBox>
                 </td>
               </tr>
             )}
@@ -53,5 +58,18 @@ const TableBody = (props) => {
     </tbody>
   );
 };
+
+const DetailBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+
+  div {
+    /* border-right: 1px solid #e4e5e6;
+    &:last-child {
+      border: none;
+    } */
+  }
+`;
 
 export default TableBody;
