@@ -4,21 +4,28 @@ import styled from "styled-components";
 import TableBody from "../components/Table/TableBody";
 import TableHeader from "../components/Table/TableHeader";
 
-const Table = ({ data, limit, setLimit, order, setOrder }) => {
+const Table = ({ data, limit, setLimit, order, setOrder, setPage }) => {
   return (
     <Wrap>
       <h2>Table</h2>
       <OrderBox>
-        <Select type="number" value={limit} onChange={({ target: { value } }) => setLimit(Number(value))}>
+        <Select
+          type="number"
+          value={limit}
+          onChange={({ target: { value } }) => {
+            setLimit(Number(value));
+            setPage(1);
+          }}
+        >
           <option value="50">개수</option>
-          <option value="80">80</option>
-          <option value="100">100</option>
-          <option value="130">130</option>
-          <option value="150">150</option>
+          <option value="80">80개</option>
+          <option value="100">100개</option>
+          <option value="130">130개</option>
+          <option value="150">150개</option>
         </Select>
 
         <Select type="string" value={order} onChange={({ target: { value } }) => setOrder(value)}>
-          <option value="">정렬</option>
+          <option value="">정렬순서</option>
           <option value="person_id">Id</option>
           <option value="gender">성별</option>
           <option value="birth">생년월일</option>

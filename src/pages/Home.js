@@ -53,7 +53,7 @@ const Home = () => {
 
       <Chart gender={gender} race={race} ethnicity={ethnicity} />
 
-      <Table data={list} limit={limit} setLimit={setLimit} order={order} setOrder={setOrder} />
+      <Table data={list} limit={limit} setLimit={setLimit} order={order} setOrder={setOrder} setPage={setPage} />
       <Pagination total={total} limit={limit} page={page} setPage={setPage} />
     </Wrap>
   );
