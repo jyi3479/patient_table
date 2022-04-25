@@ -35,7 +35,7 @@ const TableBody = ({ data }) => {
             </tr>
             {targetId === el.personID && active && (
               <tr>
-                <td colspan="7">
+                <td colSpan="7">
                   <DetailBox>
                     <div>
                       <h3>전체 방문 수</h3>
@@ -43,8 +43,8 @@ const TableBody = ({ data }) => {
                     </div>
                     <div>
                       <h3>진단 정보</h3>
-                      {targetList.conditionList.map((el) => {
-                        return <li>{el}</li>;
+                      {targetList.conditionList.map((el, idx) => {
+                        return <li key={idx}>{el}</li>;
                       })}
                     </div>
                   </DetailBox>
